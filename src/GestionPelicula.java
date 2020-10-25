@@ -5,12 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -47,9 +43,6 @@ public class GestionPelicula extends JDialog {
 	private JTextField textDuracion;
 	private JTextField textNomPoster;
 	private JTextField textTrailer;
-	Conexion conexion1 = new Conexion();
-	PreparedStatement pst = null;
-	
 
 
 
@@ -250,39 +243,6 @@ public class GestionPelicula extends JDialog {
 		
 			{
 				JButton okButton = new JButton("Guardar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
-						
-						
-						try {
-							Connection cn1 = conexion1.conectar();
-							
-							String guardar="INSERT INTO Pelicula (titulo,genero,año,sinopsis,duracion,trailer,nomPoster,poster) VALUES (?,?,?,?,?,?,?,?)";
-							pst = cn1.prepareStatement(guardar);
-							FileInputStream archivoposter;
-							;
-							pst.setString(1,textTitulo.getText());
-							pst.setString(2, (String)comboBox.getSelectedItem());
-							pst.setString(3, textSinopsis.getText());
-							pst.setString(4, textDuracion.getText());
-							pst.setString(5, textTrailer.getText());
-							pst.setString(6, textNomPoster.getText());
-							archivoposter= new FileInputStream(textNomPoster.getText());
-							pst.setBinaryStream(7, archivoposter);
-							
-							
-								
-						}catch (SQLException ex) {
-					            Logger.getLogger(GestionPelicula.class.getName()).log(Level.SEVERE, null, ex);
-					     }catch (FileNotFoundException ex) {
-					    	 
-					     }
-
-						
-					}
-				});
-				
 				okButton.setForeground(Color.ORANGE);
 				okButton.setBackground(Color.GRAY);
 				okButton.setOpaque(true);
